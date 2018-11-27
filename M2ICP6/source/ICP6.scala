@@ -29,7 +29,7 @@ object icp6 {
           "/station_data.csv")
 
 
-      val input = t.select("name","landmark").withColumnRenamed("name","id")
+      val input = t.select("name","landmark", "lat", "long", "dockcount").withColumnRenamed("name","id")
       //input.show()
       val output = s.select("StartStation","EndStation","Duration").withColumnRenamed("StartStation","src")
         .withColumnRenamed("EndStation","dst").withColumnRenamed("Duration","relationship")
@@ -50,6 +50,10 @@ object icp6 {
       val PR = g.pageRank.resetProbability(0.15).maxIter(10).run()
       PR.vertices.show()
       PR.edges.show()
+ 
+      // BFS
+       val BFS = g.bfs.fromExpr("id = 'Mezes Park'").toExpr("dockcount < 15").run()
+       BFS.show()
 
 
       g.vertices.write.csv("C:/Users/Sushu/Desktop/BDFiles/M2-ICP5/vertices3")
