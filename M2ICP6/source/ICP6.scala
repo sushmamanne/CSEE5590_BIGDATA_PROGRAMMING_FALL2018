@@ -37,16 +37,16 @@ object icp6 {
 
 
       val g=GraphFrame(input,output)
-
-     // trianglecount
+      
+      // trianglecount
       val TC = g.triangleCount.run()
       TC.select("id" ,"count").show()
 
-     // Shortest Path
+      // Shortest Path
       val SP = g.shortestPaths.landmarks(Seq("San Jose Civic Center","Ryland Park")).run
       SP.show()
-
-     // Pagerank
+ 
+      // Pagerank
       val PR = g.pageRank.resetProbability(0.15).maxIter(10).run()
       PR.vertices.show()
       PR.edges.show()
